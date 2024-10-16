@@ -19,7 +19,6 @@ const authors = [
 const books = [
   { id: 1, name: "Fikir Eske Mekaber", authorID: 1 },
   { id: 2, name: "Love Unto Crypt ", authorID: 1 },
-  { id: 3, name: "Harry Potter and the Giblet of Fire", authorID: 1 },
   { id: 4, name: "I Will Not Be Born", authorID: 2 },
   { id: 5, name: "The Savage Girl ", authorID: 2 },
   { id: 6, name: "His Mother's Only Child ", authorID: 2 },
@@ -112,9 +111,24 @@ const RootMutationType = new GraphQLObjectType({
           id: books.length + 1,
           name: args.name,
           authorId: args.authorId,
-        }
-        books.push(book)
-        return book
+        };
+        books.push(book);
+        return book;
+      },
+    },
+    addAuthor: {
+      type: AuthorType,
+      description: "Add an Author",
+      args: {
+        name: { type: GraphQLNonNull(GraphQLString) },
+      },
+      resolve: (parent, args) => {
+        const author = {
+          id: authors.length + 1,
+          name: args.name,
+        };
+        authors.push(author);
+        return author;
       },
     },
   }),
