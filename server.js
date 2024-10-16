@@ -82,6 +82,16 @@ const RootQureType = new GraphQLObjectType({
       description: "List of All Authors",
       resolve: () => authors,
     },
+    author: {
+        type: AuthorType,
+        description: "Sing Author",
+        args: {
+            id: {
+                type: GraphQLInt
+            }
+        },
+        resolve: (parent, args) => authors.find(author => author.id === args.id),
+      },
   }),
 });
 
